@@ -34,6 +34,7 @@ public class Person implements Serializable {
     @OneToMany
     private List<Person> supervisors = new ArrayList(); 
     
+    //Bruges til at håndtere Date
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date birthDate;
 
@@ -136,7 +137,9 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Person[ id=" + id + " ]";
+        return "Person{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", isMarried=" + isMarried + ", supervisors=" + supervisors + ", birthDate=" + birthDate + '}';
     }
+
+    
 
 }

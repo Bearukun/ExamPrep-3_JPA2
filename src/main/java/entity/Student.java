@@ -48,7 +48,9 @@ public class Student extends Person implements Serializable {
 
     @Override
     public String toString() {
-        return "";
+        return "Student{" + "matNr=" + matNr + ", matDate=" + matDate + '}';
     }
+
+    
 
 }

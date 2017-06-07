@@ -1,6 +1,7 @@
 package facade;
 
 import entity.Employee;
+import entity.Person;
 import entity.Student;
 import java.util.Date;
 import javax.persistence.EntityManager;
@@ -28,6 +29,15 @@ public class Facade {
         //edit a student, in this case Hanna
         fc.editStudent(1, "Anna", "Montana", new Date(2017 - 1900, 1, 25), 24, false, 1, new Date(2018, 4, 24));
 
+        //Find student
+        fc.findStudent(2);
+        
+        //find person
+        fc.findPerson(2);
+        
+        //Assign student to supervisor
+        fc.assignSupervisor(2, 3);
+        
         //remove a student 
         fc.deleteStudent(1);
 
@@ -51,6 +61,26 @@ public class Facade {
         em.close();
 
     }
+    
+    public void assignSupervisor(int studentID, int supervisorID){
+        em.getTransaction().begin();
+        
+        Employee emp =  em.find(Employee.class, supervisorID);
+        Student std =  em.find(Student.class, studentID);
+        
+        std.addSupervisor(emp);
+        
+        em.persist(std);
+        
+        em.getTransaction().commit();
+
+        System.out.println("Student" + std.getFirstName() + ", has been assigned"
+        + " to the supervisor " + emp.getFirstName());
+        
+        
+    } 
+    
+    
 
     public void addStudent(String firstName, String lastName, Date birthDate, int age, boolean isMarried, int matNr, Date matDate) {
 
@@ -60,6 +90,20 @@ public class Facade {
 
         em.getTransaction().commit();
 
+    }
+    
+    public void findStudent(int id){
+        
+        Student st = em.find(Student.class, id);
+        System.out.println(st.toString() );
+        
+    }
+    
+  public void findPerson(int id){
+        
+        Person ps = em.find(Person.class, id);
+        System.out.println(ps.getFirstName() );
+        
     }
 
     public void addEmployee(String firstName, String lastName, Date birthDate, int age, boolean isMarried, int soSecNr, float wage, String taxClass) {
